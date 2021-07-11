@@ -21,3 +21,17 @@ function invertir(texto){
     return invertido;
 }
 console.log(invertir('quepedo'))
+
+function textInverter(textChain){
+    newText = '';
+    let newWord = '';
+    for(word of textChain){
+        for (char of word){
+            newWord = char + newWord;
+            newText = newWord + newText;
+            newWord = '';
+        }
+    }
+    return newText;
+}
+console.log(textInverter('Hola buenos dias'));
