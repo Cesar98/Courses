@@ -1,10 +1,15 @@
 function censoredText(text, word){
-    let auxText = text.split(' ');
-    let newText = '';
-    for(single of auxText){
-        newText += single == word ? '[Censored] ' : `${single} `;
+    let response = '';
+    if(text == null || word == null){
+        response = 'No hay texto ni palabra'
+    } else if(text == null){
+        response = 'No hay texto'
+    } else if(word == null){
+        response = 'No hay palabra'
+    }else{
+        response = text.replace(new RegExp(word, 'gi'), '[-CENSURADO-]');
     }
-    console.log(newText)
+    return response;
 }
 
-console.log(censoredText('hola buenos dias como dias', 'dias'))
+console.log(censoredText('diashola buenosdias dias como dias', 'dias'))
