@@ -9,4 +9,4 @@ function upWord(textChain){
     return newChain;
 }
 
-console.log(upWord('hola buenos dias'))
+console.log(upWord('hola buenos dias como estas tu?   '))
