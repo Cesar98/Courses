@@ -1,13 +1,9 @@
 function dupArray(numArray) {
-    let newList = [];
-    for (num of numArray) {
-        if (!newList.includes(num)) {
-            newList.push(num)
+    numArray = numArray.filter(element => {
+        return typeof element === "number"
+    });
 
-        }
-    }
-
-    return newList;
+    return Array.from(new Set(numArray));
 }
 
-console.log(dupArray([1,1,1,1,1,1]))
+console.log(dupArray([1,1,1,1,1,'1']))
