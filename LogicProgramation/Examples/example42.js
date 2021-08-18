@@ -1,12 +1,5 @@
-function triangle(number){
-    let text = '';
-    for (let i = 0; i < number; i++) {
-        for (let j = 0; j < number; j++) {
-            text+='*';            
-        }
-        text += '\n'
-    }
-    return text
+function randomBetween(min, max){
+    return Math.floor(Math.random()*(max-min)+min);
 }
 
-console.log(triangle(3))
+console.log(randomBetween(1,5));
