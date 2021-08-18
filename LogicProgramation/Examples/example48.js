@@ -18,4 +18,4 @@ function uniqueWord(str){
     return lastArray
 }
 
-console.log(uniqueWord('HOY'))
+console.log(uniqueWord('frase frase HOY'))
