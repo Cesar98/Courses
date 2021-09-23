@@ -1,0 +1,34 @@
+Java y javascript es totalmente diferente
+
+Historia
+A inicios de los año 90, se inicio a pensar hacer el lenjuage de programacion llamado como javascript
+por Brendan Eich.
+
+1ra version llamado liveScript, pero paso a JavaScript por moda.
+
+TC39 creo el primer estandar llamado ECMA-262 para Js.
+
+Surge por la necesidad para mandar la informacion ya procesada
+
+Ejemplos de usos de JavaScript
+Aplicaciones web, Presentaciones (Mas Ligeras que PowerPoints), WebServers, Juegos, Aplicaciones Moviles
+
+Tecnologias(Angular.js View.js y React.js)
+
+************
+Todas las funciones de js siempre tienen un return
+************
+Node nos permite ejecutar js fuera del navegador
+************
+una variable es un contenedor a info apuntada a una direccion de memoria
+************
+ES5 es el mas compatible hasta el momento con todos los navegadores pero ES6, 7, 8 es compatible con la mayoria de los navegadores
+************
+Polyfill permite utilizar caracteristicas modernas en versiones anteriores
+
+
+Verisones de JavaScript
+liveScript a javascript
+ES1
+ES5
+ES6
