@@ -21,7 +21,6 @@ console.warn(`Longitud: ${character.cords.lng}`);
 console.warn(`Trajes: ${character.suits[character.suits.length-1]}`); */
 
 /* Mas detalles */
-
 /* Para borrar propiedades */
 delete character.age;
 console.log(character);
