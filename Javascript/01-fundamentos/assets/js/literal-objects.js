@@ -12,10 +12,33 @@ let character = {
 
 };
 
-console.warn(`Nombre: ${character.name}`);
+/* console.warn(`Nombre: ${character.name}`);
 console.warn(`Nickname: ${character.codeName}`);
 console.warn(`Esta vivo?: ${character.alive}`);
 console.warn(`Edad: ${character.age}`);
 console.warn(`Latitud: ${character.cords.lat}`);
 console.warn(`Longitud: ${character.cords.lng}`);
-console.warn(`Trajes: ${character.suits[character.suits.length-1]}`);
+console.warn(`Trajes: ${character.suits[character.suits.length-1]}`); */
+
+/* Mas detalles */
+
+/* Para borrar propiedades */
+delete character.age;
+console.log(character);
+
+/* Imprime las carac en pares */
+let parEntries = Object.entries(character);
+console.log(parEntries);
+
+/* Permite no hacer cambios a las propiedades (Solo a las que estan drentro de un objeto en una propiedad) */
+character.testA = true;
+console.log(character);
+
+Object.freeze(character);
+character.testB = true;
+console.log(character);
+
+/* Trae los nombres de las propiedades */
+let properties = Object.getOwnPropertyNames(character);
+let values = Object.values(character);
+console.log(properties, values);
