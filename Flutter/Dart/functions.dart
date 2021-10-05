@@ -10,4 +10,7 @@ String sayHi2({required String name, required String message}) {
   return '$message $name';
 }
 
-/* Parametros normales, parametros opcionales [], parametros por nombre requeridos {required String name} */
+/* Parametros normales (), parametros opcionales [], 
+  parametros por nombre {} , posibles nulos String? 
+  requeridos {required String}, 
+  con valor por defecto (String name = 'aName')*/
