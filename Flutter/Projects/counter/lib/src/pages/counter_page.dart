@@ -47,10 +47,7 @@ class _CounterPageState extends State<CounterPage> {
         FloatingActionButton(
           child: Icon(Icons.add),
           tooltip: 'Increment',
-          onPressed: () {
-            _value++;
-            setState(() {});
-          },
+          onPressed: _increment,
         ),
         SizedBox(
           width: 20.0,
@@ -58,10 +55,7 @@ class _CounterPageState extends State<CounterPage> {
         FloatingActionButton(
           child: Icon(Icons.exposure_minus_1_sharp),
           tooltip: 'Decrement',
-          onPressed: () {
-            _value--;
-            setState(() {});
-          },
+          onPressed: _decrement,
         ),
         Expanded(
           child: SizedBox(),
@@ -69,12 +63,24 @@ class _CounterPageState extends State<CounterPage> {
         FloatingActionButton(
           child: Icon(Icons.restart_alt),
           tooltip: 'Restart',
-          onPressed: () {
-            _value = 0;
-            setState(() {});
-          },
+          onPressed: _restart,
         ),
       ],
     );
+  }
+
+  void _increment() {
+    _value++;
+    setState(() {});
+  }
+
+  void _decrement() {
+    _value--;
+    setState(() {});
+  }
+
+  void _restart() {
+    _value = 0;
+    setState(() {});
   }
 }
