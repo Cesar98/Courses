@@ -7,5 +7,5 @@ final _icons = <String, IconData>{
 };
 
 Icon getIcon(String iconName) {
-  return Icon(_icons[iconName], color: Colors.redAccent);
+  return Icon(_icons[iconName], color: Colors.deepPurpleAccent);
 }
