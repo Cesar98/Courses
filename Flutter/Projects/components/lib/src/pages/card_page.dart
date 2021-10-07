@@ -15,58 +15,12 @@ class CardPage extends StatelessWidget {
             height: 30.0,
           ),
           _cardType2(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType1(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType2(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType1(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType2(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType1(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType2(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType1(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType2(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType1(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType2(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType1(),
-          SizedBox(
-            height: 30.0,
-          ),
-          _cardType2(),
-          SizedBox(
-            height: 30.0,
-          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {Navigator.pop(context)},
+        backgroundColor: Colors.red,
+        child: Icon(Icons.keyboard_return),
       ),
     );
   }
