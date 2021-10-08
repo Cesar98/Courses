@@ -48,8 +48,9 @@ class _AnimateContainerPageState extends State<AnimateContainerPage> {
             child: SizedBox(),
           ),
           FloatingActionButton(
-            child: Icon(Icons.restart_alt),
+            child: Icon(Icons.keyboard_return),
             tooltip: 'Restart',
+            backgroundColor: Colors.red,
             onPressed: () {
               Navigator.pop(context);
             },
