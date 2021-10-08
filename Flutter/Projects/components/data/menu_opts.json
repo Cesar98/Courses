@@ -15,17 +15,11 @@
             "ruta" : "card",
             "icon" : "folder_open",
             "texto": "Cards"
-        }
-    ],
-    "avatarImages" : [
-        {
-            "ruta" : "assets/mad.gif"
         },
         {
-            "ruta" : "assets/happy.gif"
-        },
-        {
-            "ruta" : "assets/sad.gif"
+            "ruta" : "animatedContainer",
+            "icon" : "donut_large",
+            "texto": "Animated Container"
         }
     ]
 }
