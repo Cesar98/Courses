@@ -179,7 +179,6 @@ class _InputPageState extends State<InputPage> {
               Icons.car_repair,
               color: Colors.purple,
             ),
-            borderRadius: BorderRadius.circular(10),
             isExpanded: true,
             value: _selectedItem,
             items: getItemsList(),

@@ -41,7 +41,6 @@ class _SliderPageState extends State<SliderPage> {
   Widget _createSlider() {
     return Slider(
         activeColor: Colors.purple,
-        thumbColor: Colors.black,
         inactiveColor: Colors.deepPurple,
         label: 'Image size',
         value: _sliderValue,
