@@ -71,6 +71,9 @@ class _CreateSearchResponse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    movie.heroId = 'searching-${movie.heroId}';
+
     return ListTile(
       leading: FadeInImage(
           placeholder: AssetImage('assets/no-image.jpg'),

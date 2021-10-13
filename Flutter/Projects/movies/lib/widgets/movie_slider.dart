@@ -6,20 +6,15 @@ class MovieSlider extends StatefulWidget {
   final String? title;
   final Function onNextPage;
 
-  const MovieSlider({
-    Key? key, 
-    required this.movies, 
-    this.title, 
-    required this.onNextPage}) 
-  : super(key: key);
-
+  const MovieSlider(
+      {Key? key, required this.movies, this.title, required this.onNextPage})
+      : super(key: key);
 
   @override
   State<MovieSlider> createState() => _MovieSliderState();
 }
 
 class _MovieSliderState extends State<MovieSlider> {
-
   final ScrollController scrollController = new ScrollController();
 
   @override
@@ -27,13 +22,11 @@ class _MovieSliderState extends State<MovieSlider> {
     super.initState();
 
     scrollController.addListener(() {
-
-      if(scrollController.position.pixels >= scrollController.position.maxScrollExtent-1000){
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 1000) {
         widget.onNextPage();
       }
-
     });
-
   }
 
   @override
@@ -65,7 +58,8 @@ class _MovieSliderState extends State<MovieSlider> {
               controller: scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: widget.movies.length,
-              itemBuilder: (_, index) => _MoviePoster(movie: widget.movies[index]),
+              itemBuilder: (_, index) => _MoviePoster(widget.movies[index],
+                  '${widget.title}-$index-${widget.movies[index].id}'),
             ),
           ),
         ],
@@ -76,11 +70,15 @@ class _MovieSliderState extends State<MovieSlider> {
 
 class _MoviePoster extends StatelessWidget {
   final Movie movie;
+  final String heroId;
 
-  const _MoviePoster({Key? key, required this.movie}) : super(key: key);
+  const _MoviePoster(this.movie, this.heroId);
 
   @override
   Widget build(BuildContext context) {
+    
+    movie.heroId = heroId;
+
     return Container(
       width: 130,
       height: 190,
@@ -88,16 +86,19 @@ class _MoviePoster extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'details',
-                arguments: movie),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(movie.fullPosterImg),
-                width: 130,
-                height: 190,
-                fit: BoxFit.cover,
+            onTap: () =>
+                Navigator.pushNamed(context, 'details', arguments: movie),
+            child: Hero(
+              tag: movie.heroId!,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  placeholder: AssetImage('assets/no-image.jpg'),
+                  image: NetworkImage(movie.fullPosterImg),
+                  width: 130,
+                  height: 190,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
