@@ -43,7 +43,7 @@ class _CustomAppBar extends StatelessWidget {
             child: Text('Details', style: TextStyle(fontSize: 20))),
         background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage(movie.fullPosterImg),
+          image: NetworkImage(movie.fullBackImgPath),
           fit: BoxFit.cover,
         ),
       ),
@@ -72,40 +72,43 @@ class _PosterAndTitle extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 20,
+            width: 10,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                movie.title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: textTheme.headline5,
-              ),
-              Text(
-                movie.originalTitle,
-                style: textTheme.subtitle1,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.star_outlined,
-                    size: 25,
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    movie.voteAverage.toString(),
-                    style: textTheme.caption,
-                  )
-                ],
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  movie.title,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: textTheme.headline5,
+                ),
+                Text(
+                  movie.originalTitle,
+                  style: textTheme.subtitle1,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      Icons.star_outlined,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      movie.voteAverage.toString(),
+                      style: textTheme.caption,
+                    )
+                  ],
+                ),
+              ],
+            ),
           )
         ],
       ),
@@ -123,6 +126,23 @@ class _Overview extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Column(
         children: [
+          Divider(),
+          Text(
+            "Classification: ${movie.adult == true ? 'Adult' : 'All members'}" ,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Release date: ${movie.releaseDate}' ,
+            textAlign: TextAlign.right,
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Popularity: ${movie.popularity}' ,
+            textAlign: TextAlign.right,
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Divider(),
           Text(
             movie.overview,
             textAlign: TextAlign.justify,
