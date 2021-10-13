@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:movies/models/models.dart';
-import 'package:movies/models/upcoming_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
   String _urlBase = 'api.themoviedb.org';
@@ -13,6 +12,8 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
   List<Movie> upcomingMovies = [];
+
+  Map<int, List<Cast>> moviesCast = {};
 
   int _popularPage = 0;
   int _upcomingPage = 0;
@@ -44,7 +45,7 @@ class MoviesProvider extends ChangeNotifier {
     final decodedData = await _getJsonData('3/movie/popular', _popularPage);
     final popularResponse = PopularResponse.fromJson(decodedData);
 
-    popularMovies = [ ...popularMovies, ...popularResponse.results ];
+    popularMovies = [...popularMovies, ...popularResponse.results];
     notifyListeners();
   }
 
@@ -53,7 +54,17 @@ class MoviesProvider extends ChangeNotifier {
     final decodedData = await _getJsonData('3/movie/upcoming', _upcomingPage);
     final upcomingResponse = UpcomingResponse.fromJson(decodedData);
 
-    upcomingMovies = [ ...upcomingMovies, ...upcomingResponse.results ];
+    upcomingMovies = [...upcomingMovies, ...upcomingResponse.results];
     notifyListeners();
+  }
+
+  Future<List<Cast>> getMovieCast(int movieId) async {
+    if (moviesCast.containsKey(movieId)) return moviesCast[movieId]!;
+
+    final decodedData = await _getJsonData('3/movie/$movieId/credits');
+    final creditsResponse = CreditsResponse.fromJson(decodedData);
+
+    moviesCast[movieId] = creditsResponse.cast;
+    return creditsResponse.cast;
   }
 }

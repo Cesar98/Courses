@@ -10,12 +10,18 @@ class DetailsScreen extends StatelessWidget {
 
     return Scaffold(
         body: CustomScrollView(slivers: [
-      _CustomAppBar(movie: movie,),
+      _CustomAppBar(
+        movie: movie,
+      ),
       SliverList(
           delegate: SliverChildListDelegate([
-        _PosterAndTitle(movie: movie,),
-        _Overview(movie: movie,),
-        CastingCards(),
+        _PosterAndTitle(
+          movie: movie,
+        ),
+        _Overview(
+          movie: movie,
+        ),
+        CastingCards(movieId: movie.id,),
       ]))
     ]));
   }
@@ -24,7 +30,7 @@ class DetailsScreen extends StatelessWidget {
 class _CustomAppBar extends StatelessWidget {
   final Movie movie;
 
-  const _CustomAppBar({Key? key,required this.movie}) : super(key: key);
+  const _CustomAppBar({Key? key, required this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,7 @@ class _CustomAppBar extends StatelessWidget {
             width: double.infinity,
             alignment: Alignment.bottomCenter,
             padding: EdgeInsets.only(bottom: 10),
-            child: Text('Details', style: TextStyle(fontSize: 20))),
+            child: Text(movie.title, style: TextStyle(fontSize: 20))),
         background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'),
           image: NetworkImage(movie.fullBackImgPath),
@@ -119,7 +125,7 @@ class _PosterAndTitle extends StatelessWidget {
 class _Overview extends StatelessWidget {
   final Movie movie;
 
-  const _Overview({Key? key,required this.movie}) : super(key: key);
+  const _Overview({Key? key, required this.movie}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -128,17 +134,17 @@ class _Overview extends StatelessWidget {
         children: [
           Divider(),
           Text(
-            "Classification: ${movie.adult == true ? 'Adult' : 'All members'}" ,
+            "Classification: ${movie.adult == true ? 'Adult' : 'All members'}",
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Text(
-            'Release date: ${movie.releaseDate}' ,
+            'Release date: ${movie.releaseDate}',
             textAlign: TextAlign.right,
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Text(
-            'Popularity: ${movie.popularity}' ,
+            'Popularity: ${movie.popularity}',
             textAlign: TextAlign.right,
             style: Theme.of(context).textTheme.subtitle2,
           ),
