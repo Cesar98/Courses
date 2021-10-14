@@ -28,7 +28,7 @@ class MovieSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text('Results');
+    return this.buildSuggestions(context);
   }
 
   @override
@@ -36,9 +36,10 @@ class MovieSearchDelegate extends SearchDelegate {
     if (query.isEmpty) return _emptySearch();
 
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+    moviesProvider.getSuggestionsByQuery(query);
 
-    return FutureBuilder(
-      future: moviesProvider.searchMovies(query),
+    return StreamBuilder(
+      stream: moviesProvider.suggestionsStream,
       builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
         if (!snapshot.hasData) return _emptySearch();
 
@@ -72,12 +73,15 @@ class _CreateSearchResponse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    movie.heroId = 'searching-${movie.heroId}';
+    movie.heroId = 'searching-${movie.originalTitle}-${movie.id}';
 
     return ListTile(
-      leading: FadeInImage(
-          placeholder: AssetImage('assets/no-image.jpg'),
-          image: NetworkImage(movie.fullPosterImg), width: 100, fit: BoxFit.cover
+      leading: Hero(
+        tag: movie.heroId!,
+        child: FadeInImage(
+            placeholder: AssetImage('assets/no-image.jpg'),
+            image: NetworkImage(movie.fullPosterImg), width: 100, fit: BoxFit.cover
+        ),
       ),
       title: Text(movie.title),
       subtitle: Text(movie.originalTitle),
