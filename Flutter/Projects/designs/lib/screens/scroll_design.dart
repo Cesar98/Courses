@@ -1,14 +1,39 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class ScrollScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Stack(
-          children: [Background(), Content()],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+            Color(0xfffe0d3a),
+            Color(0xff130042),
+            Color(0xff010003),
+            Color(0xff130042),
+            Color(0xfffe0d3a)
+          ]),
+        ),
+        child: PageView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          children: [
+            Page1(),
+            Page2(),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class Page1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [Background(), Content()],
     );
   }
 }
@@ -17,11 +42,16 @@ class Background extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Color(0xff30BAD6),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              colors: [Color(0xfffe0d3a), Color(0xff130042)]),
+        ),
         alignment: Alignment.topCenter,
         height: double.infinity,
         child: Image(
-          image: AssetImage('assets/scroll-1.png'),
+          image: AssetImage('assets/scroll-2.png'),
+          fit: BoxFit.cover,
         ));
   }
 }
@@ -40,9 +70,11 @@ class Content extends StatelessWidget {
       child: Container(
           child: Column(
         children: [
-          SizedBox(height: 40,),
+          SizedBox(
+            height: 40,
+          ),
           Text('11°', style: textStyle),
-          Text('Monday°',
+          Text('Monday',
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
@@ -58,6 +90,33 @@ class Content extends StatelessWidget {
           )
         ],
       )),
+    );
+  }
+}
+
+class Page2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            colors: [Color(0xff010003), Color(0xff130042), Color(0xfffe0d3a)]),
+      ),
+      child: Center(
+        child: TextButton(
+          onPressed: () {},
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
+            child: Text('Welcome',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                )),
+          ),
+          style: TextButton.styleFrom(backgroundColor: Colors.black),
+        ),
+      ),
     );
   }
 }
