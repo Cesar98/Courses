@@ -6,24 +6,14 @@ class ScrollScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-            Color(0xfffe0d3a),
-            Color(0xff130042),
-            Color(0xff010003),
-            Color(0xff130042),
-            Color(0xfffe0d3a)
-          ]),
-        ),
-        child: PageView(
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          children: [
-            Page1(),
-            Page2(),
-          ],
-        ),
+      backgroundColor: Color(0xfffe0d3a),
+      body: PageView(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        children: [
+          Page1(),
+          Page2(),
+        ],
       ),
     );
   }
@@ -42,16 +32,12 @@ class Background extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [Color(0xfffe0d3a), Color(0xff130042)]),
-        ),
         alignment: Alignment.topCenter,
         height: double.infinity,
         child: Image(
           image: AssetImage('assets/scroll-2.png'),
-          fit: BoxFit.cover,
+          width: double.infinity,
+          fit: BoxFit.fill,
         ));
   }
 }
@@ -66,31 +52,33 @@ class Content extends StatelessWidget {
     );
 
     return SafeArea(
-      bottom: false,
-      child: Container(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Text('11°', style: textStyle),
-          Text('Monday',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              )),
-          Expanded(
-            child: Container(),
-          ),
-          Icon(
-            Icons.keyboard_arrow_down_rounded,
-            color: Colors.white,
-            size: 150,
-          )
-        ],
-      )),
-    );
+        bottom: false,
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(right: 150, top: 40),
+              child: Column(
+                children: [
+                  Text('11°', style: textStyle),
+                  Text('Monday',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Container(),
+            ),
+            Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: Colors.white,
+              size: 150,
+            )
+          ],
+        ));
   }
 }
 
@@ -107,14 +95,15 @@ class Page2 extends StatelessWidget {
         child: TextButton(
           onPressed: () {},
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
+            padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 0),
             child: Text('Welcome',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
                 )),
           ),
-          style: TextButton.styleFrom(backgroundColor: Colors.black),
+          style: TextButton.styleFrom(
+              backgroundColor: Colors.black, shape: StadiumBorder()),
         ),
       ),
     );
