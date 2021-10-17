@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:designs/screens/basic_design.dart';
 import 'package:designs/screens/scroll_design.dart';
 import 'package:designs/screens/home_screen.dart';
+import 'package:flutter/services.dart';
 
 
 
@@ -12,10 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: 'scroll_design',
+      initialRoute: 'home_screen',
       routes: {
         'basic_design' : ( _ ) => BasicDesignScreen(),
         'scroll_design' : ( _ ) => ScrollScreen(),

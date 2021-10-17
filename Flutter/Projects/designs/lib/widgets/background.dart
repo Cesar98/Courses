@@ -19,7 +19,7 @@ class Background extends StatelessWidget {
 
         // Pink box
         Positioned(
-          top: -80,
+          top: -150,
           left: -50,
           child: _PinkBox()
         ),
@@ -34,7 +34,7 @@ class _PinkBox extends StatelessWidget {
     return Transform.rotate(
       angle: 40.0,
       child: Container(
-        width: 360,
+        width: 300,
         height: 400,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(80),
