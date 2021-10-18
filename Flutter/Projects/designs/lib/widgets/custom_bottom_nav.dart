@@ -7,7 +7,8 @@ class CustomBottomNav extends StatelessWidget {
       selectedItemColor: Colors.pink,
       backgroundColor: Color.fromRGBO(55, 57, 84, 1),
       unselectedItemColor: Colors.white60,
-      showSelectedLabels: false,
+      showSelectedLabels: true,
+      currentIndex: 2,
       showUnselectedLabels: false,
       items: [
         BottomNavigationBarItem(
