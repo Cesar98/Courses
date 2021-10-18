@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class CardTable extends StatelessWidget {
@@ -9,83 +11,43 @@ class CardTable extends StatelessWidget {
         children: [
           TableRow(children: [
             _UniqueCard(
-              cardColor: 0xff81F7F8,
-              cardTitle: 'General',
-              cardIcon: Icon(
-                Icons.auto_awesome_mosaic_rounded,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+                cardColor: Color(0xff81F7F8),
+                cardTitle: 'General',
+                cardIcon: Icons.auto_awesome_mosaic_rounded),
             _UniqueCard(
-              cardColor: 0xffC16DFB,
-              cardTitle: 'Transport',
-              cardIcon: Icon(
-                Icons.bus_alert,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+                cardColor: Color(0xffC16DFB),
+                cardTitle: 'Transport',
+                cardIcon: Icons.bus_alert),
           ]),
           TableRow(children: [
             _UniqueCard(
-              cardColor: 0xffE2A3F0,
-              cardTitle: 'Shopping',
-              cardIcon: Icon(
-                Icons.shop_2,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+                cardColor: Color(0xffE2A3F0),
+                cardTitle: 'Shopping',
+                cardIcon: Icons.shop_2),
             _UniqueCard(
-              cardColor: 0xffE7D364,
-              cardTitle: 'Bills',
-              cardIcon: Icon(
-                Icons.airplane_ticket,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+                cardColor: Color(0xffE7D364),
+                cardTitle: 'Bills',
+                cardIcon: Icons.airplane_ticket),
           ]),
           TableRow(children: [
             _UniqueCard(
-              cardColor: 0xff3F73CC,
-              cardTitle: 'Entertainment',
-              cardIcon: Icon(
-                Icons.fire_extinguisher_sharp,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+                cardColor: Color(0xff3F73CC),
+                cardTitle: 'Entertainment',
+                cardIcon: Icons.fire_extinguisher_sharp),
             _UniqueCard(
-              cardColor: 0xff55CC3F,
-              cardTitle: 'Grocery',
-              cardIcon: Icon(
-                Icons.food_bank,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+                cardColor: Color(0xff55CC3F),
+                cardTitle: 'Grocery',
+                cardIcon: Icons.food_bank),
           ]),
           TableRow(children: [
             _UniqueCard(
-              cardColor: 0xff4A236A,
-              cardTitle: 'Games',
-              cardIcon: Icon(
-                Icons.gamepad_outlined,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+                cardColor: Color(0xff4A236A),
+                cardTitle: 'Games',
+                cardIcon: Icons.gamepad_outlined),
             _UniqueCard(
-              cardColor: 0xff000000,
-              cardTitle: 'Laptops',
-              cardIcon: Icon(
-                Icons.computer,
-                size: 30,
-                color: Colors.white,
-              ),
-            ),
+                cardColor: Color(0xff000000),
+                cardTitle: 'Laptops',
+                cardIcon: Icons.computer),
           ]),
         ],
       ),
@@ -94,9 +56,9 @@ class CardTable extends StatelessWidget {
 }
 
 class _UniqueCard extends StatelessWidget {
-  final int cardColor;
+  final Color cardColor;
+  final IconData cardIcon;
   final String cardTitle;
-  final Icon cardIcon;
 
   const _UniqueCard(
       {Key? key,
@@ -107,47 +69,54 @@ class _UniqueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _CardBackground(
+        child: Column(
+      children: [
+        SizedBox(
+          height: 15,
+        ),
+        CircleAvatar(
+          radius: 30,
+          backgroundColor: cardColor,
+          child: Icon(
+            cardIcon,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(cardTitle,
+            style: TextStyle(
+                color: cardColor, fontSize: 20, fontWeight: FontWeight.bold)),
+        SizedBox(
+          height: 15,
+        ),
+      ],
+    ));
+  }
+}
+
+class _CardBackground extends StatelessWidget {
+  final Widget child;
+
+  const _CardBackground({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Container(
-          color: Color(0xFF0E3311).withOpacity(0.3),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 15,
-              ),
-              Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Container(
-                      height: 70,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.white, Color(cardColor)],
-                              begin: Alignment.topLeft,
-                              stops: [0.01, 0.5])),
-                    ),
-                  ),
-                  cardIcon
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(cardTitle,
-                  style: TextStyle(
-                      color: Color(cardColor),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
-              SizedBox(
-                height: 15,
-              ),
-            ],
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color.fromRGBO(62, 66, 107, 0.7),
+            ),
+            child: child,
           ),
         ),
       ),
