@@ -1,7 +1,8 @@
-import 'package:designs/widgets/page_title.dart';
 import 'package:flutter/material.dart';
 
 import 'package:designs/widgets/background.dart';
+import 'package:designs/widgets/custom_bottom_nav.dart';
+import 'package:designs/widgets/page_title.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -15,6 +16,7 @@ class HomeScreen extends StatelessWidget {
           _HomeBody(),
         ],
       ),
+      bottomNavigationBar: CustomBottomNav(),
     );
   }
 }
