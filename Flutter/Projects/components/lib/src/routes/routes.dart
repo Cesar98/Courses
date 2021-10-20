@@ -1,5 +1,3 @@
-import 'package:components/src/pages/listview_page.dart';
-import 'package:components/src/pages/slider_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:components/src/pages/alert_page.dart';
@@ -9,6 +7,9 @@ import 'package:components/src/pages/loading_page.dart';
 import 'package:components/src/pages/card_page.dart';
 import 'package:components/src/pages/animated_container.dart';
 import 'package:components/src/pages/input_page.dart';
+import 'package:components/src/pages/listview_page.dart';
+import 'package:components/src/pages/mobile_ads_page.dart';
+import 'package:components/src/pages/slider_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -21,5 +22,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'inputs': (BuildContext context) => InputPage(),
     'slider': (BuildContext context) => SliderPage(),
     'list': (BuildContext context) => ListPage(),
+    'mobile_ads': (BuildContext context) => MobileAdsPage(),
   };
 }

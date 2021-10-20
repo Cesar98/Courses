@@ -35,6 +35,11 @@
             "ruta" : "list",
             "icon" : "list",
             "texto": "Lists & Scroll"
+        },
+        {
+            "ruta" : "mobile_ads",
+            "icon" : "ads",
+            "texto": "Mobile ads"
         }
     ]
 }
