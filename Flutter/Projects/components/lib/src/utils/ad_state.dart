@@ -7,7 +7,7 @@ class AdState {
 
   String get bannerAdUnitId => 'ca-app-pub-3940256099942544/6300978111';
 
-  final BannerAdListener listener = BannerAdListener(
+  BannerAdListener listener = BannerAdListener(
     // Called when an ad is successfully received.
     onAdLoaded: (Ad ad) => print('Ad loaded.'),
     // Called when an ad request failed.

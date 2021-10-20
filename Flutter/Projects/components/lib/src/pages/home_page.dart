@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             adUnitId: adState.bannerAdUnitId,
             size: AdSize.banner,
             request: AdRequest(),
-            listener: BannerAdListener())
+            listener: adState.listener)
           ..load();
       });
     });
