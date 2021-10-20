@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:components/src/providers/menu_provider.dart';
 import 'package:components/src/utils/icon_string_util.dart';
-import 'package:components/src/pages/alert_page.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:components/src/utils/ad_state.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // represents the single banner ad
+  BannerAd? banner;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final adState = Provider.of<AdState>(context);
+
+    adState.initialization?.then((status) {
+      setState(() {
+        banner = BannerAd(
+            adUnitId: adState.bannerAdUnitId,
+            size: AdSize.banner,
+            request: AdRequest(),
+            listener: BannerAdListener())
+          ..load();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Principal'),
-        ),
-        body: _list());
+      appBar: AppBar(
+        title: Text('Principal'),
+      ),
+      body: _list(),
+    );
   }
 
   Widget _list() {
@@ -30,6 +60,20 @@ class HomePage extends StatelessWidget {
 
   List<Widget> _itemsList(List<dynamic> elements, BuildContext context) {
     final List<Widget> listed = [];
+
+    final Widget adBox;
+    if (banner == null) {
+      adBox = SizedBox(
+        height: 50,
+      );
+    } else {
+      adBox = Container(
+        height: 50,
+        child: AdWidget(ad: banner!),
+      );
+    }
+
+    listed.add(adBox);
 
     elements.forEach((element) {
       final widgetElement = ListTile(
