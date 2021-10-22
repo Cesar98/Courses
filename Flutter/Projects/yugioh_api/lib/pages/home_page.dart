@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yugioh_api/models/card_response.dart';
 import 'package:yugioh_api/providers/cards_provider.dart';
 import 'package:yugioh_api/widgets/principal_card.dart';
 
 class HomePage extends StatelessWidget {
-  CardResponse? randomCard;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class HomePage extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             } else {
-              return PrincipalCard(card: snapshot.data);
+              return PrincipalCard(card: snapshot.data!);
             }
           },
         ),

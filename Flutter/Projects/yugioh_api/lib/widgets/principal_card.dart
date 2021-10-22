@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yugioh_api/models/card_response.dart';
 
-
 class PrincipalCard extends StatelessWidget {
   final CardResponse card;
 
@@ -12,7 +11,8 @@ class PrincipalCard extends StatelessWidget {
     return Stack(
       children: [
         _background(),
-        _components(),
+        _components(
+            card.name, card.type!, card.cardImages, card.cardPrices),
       ],
     );
   }
@@ -26,14 +26,15 @@ class PrincipalCard extends StatelessWidget {
     );
   }
 
-  Widget _components() {
+  Widget _components(String cardTitle, String cardType,
+      List<CardImage> cadrUrls, List<CardPrice> cardPrices) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            _cardTitle(),
-            _cardStars(),
+            _cardTitle(cardTitle),
+            _cardId(cardType),
             _cardImage(),
             _cardDescription()
           ],
@@ -42,16 +43,16 @@ class PrincipalCard extends StatelessWidget {
     );
   }
 
-  Widget _cardTitle() {
+  Widget _cardTitle(String title) {
     return Container(
       height: 50,
       width: double.infinity,
-      decoration: BoxDecoration(color: Colors.white70),
+      decoration: BoxDecoration(color: Colors.black54),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Center(
           child: Text(
-            'Card title'.toUpperCase(),
+            title.toUpperCase(),
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
           ),
         ),
@@ -59,13 +60,13 @@ class PrincipalCard extends StatelessWidget {
     );
   }
 
-  Widget _cardStars() {
+  Widget _cardId(String type) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
           Expanded(child: Container()),
-          Icon(Icons.stars, color: Colors.red),
+          Text(type)
         ],
       ),
     );
