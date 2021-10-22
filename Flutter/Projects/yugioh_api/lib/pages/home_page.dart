@@ -36,7 +36,12 @@ class HomePage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          children: [_cardTitle(), _cardStars(), _cardImage()],
+          children: [
+            _cardTitle(),
+            _cardStars(),
+            _cardImage(),
+            _cardDescription()
+          ],
         ),
       ),
     );
@@ -78,10 +83,28 @@ class HomePage extends StatelessWidget {
         height: 300,
         width: 400,
         child: FadeInImage(
-          fit: BoxFit.fill,
+            fit: BoxFit.fill,
             placeholder: AssetImage('assets/loading.gif'),
             image: NetworkImage(
                 'https://static.wikia.nocookie.net/yugiohenespanol/images/5/58/Foto_mago_oscuro.jpg/revision/latest?cb=20120121043211&path-prefix=es')),
+      ),
+    );
+  }
+
+  Widget _cardDescription() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(width: 130, height: 20, color: Colors.red),
+            Container(width: 130, height: 20, color: Colors.blue),
+            SizedBox(
+              width: 50,
+            ),
+          ],
+        ),
       ),
     );
   }
