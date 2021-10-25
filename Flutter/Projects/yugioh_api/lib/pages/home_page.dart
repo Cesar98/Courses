@@ -26,13 +26,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _resquestRandom() {
-    final future =  FutureBuilder(
+    final future = FutureBuilder(
       future: getCards(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else {
-          if(snapshot.data == null){
+          if (snapshot.data == null) {
             _resquestRandom();
           }
           return PrincipalCard(card: snapshot.data!);
