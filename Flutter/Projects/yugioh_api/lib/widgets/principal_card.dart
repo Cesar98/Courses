@@ -11,8 +11,7 @@ class PrincipalCard extends StatelessWidget {
     return Stack(
       children: [
         _background(),
-        _components(
-            card.name, card.type!, card.cardImages, card.cardPrices),
+        _components(card.name, card.type!, card.cardImages, card.cardPrices),
       ],
     );
   }
@@ -27,75 +26,71 @@ class PrincipalCard extends StatelessWidget {
   }
 
   Widget _components(String cardTitle, String cardType,
-      List<CardImage> cadrUrls, List<CardPrice> cardPrices) {
+      List<CardImage> cardUrls, List<CardPrice> cardPrices) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          children: [
-            _cardTitle(cardTitle),
-            _cardId(cardType),
-            _cardImage(),
-            _cardDescription()
-          ],
+          children: [_cardImage(cardUrls), _cardPrices(cardPrices)],
         ),
       ),
     );
   }
 
-  Widget _cardTitle(String title) {
-    return Container(
-      height: 50,
-      width: double.infinity,
-      decoration: BoxDecoration(color: Colors.black54),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Center(
-          child: Text(
-            title.toUpperCase(),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _cardId(String type) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Expanded(child: Container()),
-          Text(type)
-        ],
-      ),
-    );
-  }
-
-  Widget _cardImage() {
+  Widget _cardImage(List<CardImage> images) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
-        height: 300,
+        height: 400,
         width: 400,
         child: FadeInImage(
             fit: BoxFit.fill,
             placeholder: AssetImage('assets/loading.gif'),
-            image: NetworkImage(
-                'https://static.wikia.nocookie.net/yugiohenespanol/images/5/58/Foto_mago_oscuro.jpg/revision/latest?cb=20120121043211&path-prefix=es')),
+            image: NetworkImage(images[0].imageUrl)),
       ),
     );
   }
 
-  Widget _cardDescription() {
+  Widget _cardPrices(List<CardPrice> prices) {
+    var textStyle = TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Expanded(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(width: 130, height: 20, color: Colors.red),
-            Container(width: 130, height: 20, color: Colors.blue),
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Ebay',
+                    style: textStyle,
+                  ),
+                  Text(
+                    (prices[0].ebayPrice).toString(),
+                    style: textStyle,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              width: 30,
+            ),
+            Container(
+              child: Column(
+                children: [
+                  Text(
+                    'Amazon',
+                    style: textStyle,
+                  ),
+                  Text(
+                    (prices[0].amazonPrice).toString(),
+                    style: textStyle,
+                  )
+                ],
+              ),
+            ),
             SizedBox(
               width: 50,
             ),
