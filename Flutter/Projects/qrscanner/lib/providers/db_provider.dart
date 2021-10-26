@@ -67,8 +67,7 @@ class DBProvider {
 
   Future<int> flushDB() async {
     final db = await database;
-    final res = await db.delete('Scans',
-        where: 'type = ? & type = ?', whereArgs: ['http', 'geo']);
+    final res = await db.delete('Scans');
     return res;
   }
 
@@ -76,6 +75,12 @@ class DBProvider {
     final db = await database;
     final res = await db.update('Scans', updatedScan.toJson(),
         where: 'id = ?', whereArgs: [updatedScan.id]);
+    return res;
+  }
+
+  Future<int> deleteScan(int id) async {
+    final db = await database;
+    final res = await db.delete('Scans', where: 'id = ?', whereArgs: [id]);
     return res;
   }
 }
