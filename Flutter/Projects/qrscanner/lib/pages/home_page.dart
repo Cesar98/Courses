@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:qrscanner/pages/adresses_page.dart';
 import 'package:qrscanner/pages/maps_page.dart';
+import 'package:qrscanner/providers/db_provider.dart';
 import 'package:qrscanner/providers/ui_provider.dart';
 import 'package:qrscanner/widgets/custom_bottom_nav_bar.dart';
 import 'package:qrscanner/widgets/custom_floating_button.dart';
@@ -36,6 +37,10 @@ class _HomePageBody extends StatelessWidget {
     final uIProvider = Provider.of<UIProvider>(context);
 
     final currentIndex = uIProvider.selectedMenuOption;
+
+    final tempScan = ScanModel(value: 'http://www.google.com');
+    
+    DBProvider.db.newScan(tempScan);
 
     switch (currentIndex) {
       case 0:
