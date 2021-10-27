@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:qrscanner/pages/adresses_page.dart';
 import 'package:qrscanner/pages/maps_page.dart';
 import 'package:qrscanner/providers/db_provider.dart';
+import 'package:qrscanner/providers/scan_list_provider.dart';
 import 'package:qrscanner/providers/ui_provider.dart';
 import 'package:qrscanner/widgets/custom_bottom_nav_bar.dart';
 import 'package:qrscanner/widgets/custom_floating_button.dart';
@@ -12,6 +13,7 @@ import 'package:qrscanner/widgets/custom_floating_button.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('History'),
@@ -38,14 +40,14 @@ class _HomePageBody extends StatelessWidget {
 
     final currentIndex = uIProvider.selectedMenuOption;
 
-    final tempScan = ScanModel(value: 'http://www.google.com');
-
-    DBProvider.db.getAllScans();
+    final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
 
     switch (currentIndex) {
       case 0:
+        scanListProvider.loadScansByType('geo');
         return MapsPage();
       case 1:
+        scanListProvider.loadScansByType('http');
         return AdressesPage();
       default:
         return MapsPage();
