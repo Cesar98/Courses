@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrscanner/providers/scan_list_provider.dart';
+import 'package:qrscanner/utils/utils.dart';
 
 class ScanListTiles extends StatelessWidget {
 
-  final IconData pageIcon;
+  final String type;
 
-  const ScanListTiles({Key? key, required this.pageIcon}) : super(key: key);
+  const ScanListTiles({Key? key, required this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +29,11 @@ class ScanListTiles extends StatelessWidget {
             Provider.of<ScanListProvider>(context, listen: false).deleteScanById(scans[index].id!);
           },
           child: ListTile(
-            leading: Icon(pageIcon, color: Theme.of(context).indicatorColor),
+            leading: Icon(type == 'http' ? Icons.open_in_browser_rounded : Icons.add_location_sharp, color: Theme.of(context).indicatorColor),
             title: Text(scans[index].value),
             subtitle: Text(scans[index].id.toString()),
             trailing: Icon(Icons.arrow_forward, color: Colors.black),
-            onTap: () {
-              print(scans[index].id);
-            },
+            onTap: () => launchURL(context, scans[index]),
           ),
         );
       },

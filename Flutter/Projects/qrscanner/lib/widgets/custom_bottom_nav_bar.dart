@@ -15,9 +15,9 @@ class CustomNavBar extends StatelessWidget {
       onTap: (int i) => uIProvider.selectedMenuOption = i,
       currentIndex: currentIndex,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Maps'),
+        BottomNavigationBarItem(icon: Icon(Icons.map_rounded), label: 'Maps'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.alt_route_sharp), label: 'Directions'),
+            icon: Icon(Icons.web), label: 'Directions'),
       ],
     );
   }

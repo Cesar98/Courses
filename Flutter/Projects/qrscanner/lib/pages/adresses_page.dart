@@ -8,6 +8,6 @@ class AdressesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScanListTiles(pageIcon: Icons.home);
+    return ScanListTiles(type: 'http',);
   }
 }

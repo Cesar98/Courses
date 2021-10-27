@@ -6,6 +6,6 @@ import 'package:qrscanner/widgets/scan_list_tiles.dart';
 class MapsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScanListTiles(pageIcon: Icons.map);
+    return ScanListTiles(type: 'geo',);
   }
 }
