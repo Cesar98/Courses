@@ -15,7 +15,13 @@ class CustomFloatingButton extends StatelessWidget {
             '#31F9CC', 'Cancel', false, ScanMode.QR); */
 /* 
         final barcodeScanRes = 'geo:19.25940515808391, -99.5772869118622'; */
-        final barcodeScanRes = 'http://www.google.com';
+
+        final barcodeScanRes = '-1';
+
+        if(barcodeScanRes == '-1'){
+          return;
+        }
+
         final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
         final scan = await scanListProvider.newScan(barcodeScanRes);
 
