@@ -13,13 +13,17 @@ import 'package:qrscanner/widgets/custom_floating_button.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('History'),
         actions: [
           IconButton(
-              onPressed: () {}, icon: Icon(Icons.restore_from_trash_rounded))
+              onPressed: () {
+                final scanListProvider =
+                    Provider.of<ScanListProvider>(context, listen: false);
+                scanListProvider.deleteAllScans();
+              },
+              icon: Icon(Icons.restore_from_trash_rounded))
         ],
       ),
       body: _HomePageBody(),
@@ -31,16 +35,15 @@ class HomePage extends StatelessWidget {
   }
 }
 
-
 class _HomePageBody extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final uIProvider = Provider.of<UIProvider>(context);
 
     final currentIndex = uIProvider.selectedMenuOption;
 
-    final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
 
     switch (currentIndex) {
       case 0:
@@ -52,6 +55,5 @@ class _HomePageBody extends StatelessWidget {
       default:
         return MapsPage();
     }
-
   }
 }
