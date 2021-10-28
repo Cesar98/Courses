@@ -13,11 +13,9 @@ class CustomFloatingButton extends StatelessWidget {
       onPressed: () async {
         /* String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
             '#31F9CC', 'Cancel', false, ScanMode.QR); */
-/* 
-        final barcodeScanRes = 'geo:19.25940515808391, -99.5772869118622'; */
 
-        final barcodeScanRes = '-1';
-
+        String barcodeScanRes = 'geo:19.257466350161504, -99.5777666312278';
+        
         if(barcodeScanRes == '-1'){
           return;
         }
