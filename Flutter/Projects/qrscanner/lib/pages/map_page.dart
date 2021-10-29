@@ -16,26 +16,44 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    final CameraPosition initialPoint = CameraPosition(
-      target: LatLng(37.42796133580664, -122.085749655962),
-      zoom: 14.4746,
-    );
-
     final ScanModel scan =
         ModalRoute.of(context)!.settings.arguments as ScanModel;
+
+    final CameraPosition initialPoint = CameraPosition(
+        target: scan.getLatLng(), zoom: 17, tilt: 50, bearing: 90);
+
+    Set<Marker> markers = new Set<Marker>();
+
+    markers.add(new Marker(
+        markerId: MarkerId('Central-point'), position: scan.getLatLng()));
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Map'),
       ),
       body: GoogleMap(
-        mapType: MapType.hybrid,
+        mapType: MapType.normal,
+        markers: markers,
         initialCameraPosition: initialPoint,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
       ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniStartDocked,
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.location_on),
+          onPressed: () {
+            _goToCentralPoint(scan.getLatLng());
+          }),
     );
+  }
+
+  Future<void> _goToCentralPoint(LatLng latlang) async {
+    final CameraPosition position =
+        CameraPosition(target: latlang, zoom: 17, tilt: 50, bearing: 90);
+
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(position));
   }
 }

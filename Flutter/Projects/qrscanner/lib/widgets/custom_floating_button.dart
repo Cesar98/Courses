@@ -11,10 +11,8 @@ class CustomFloatingButton extends StatelessWidget {
     return FloatingActionButton(
       tooltip: 'Scan QR code',
       onPressed: () async {
-        /* String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-            '#31F9CC', 'Cancel', false, ScanMode.QR); */
-
-        String barcodeScanRes = 'geo:19.257466350161504, -99.5777666312278';
+        String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+            '#31F9CC', 'Cancel', false, ScanMode.QR);
         
         if(barcodeScanRes == '-1'){
           return;
