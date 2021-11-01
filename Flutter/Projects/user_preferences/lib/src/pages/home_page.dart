@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
+import 'package:user_preferences/src/widgets/custom_sidebar.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -11,11 +11,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar : AppBar(
-        title: Text('User prefferences'),
+        centerTitle: true,
+        title: Text('User preferences'),
       ),
+      drawer: CustomSidebar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Divider(),
           Text('Secondary color'),
           Divider(),
           Text('Gender'),
