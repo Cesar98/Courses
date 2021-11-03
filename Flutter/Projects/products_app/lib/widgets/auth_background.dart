@@ -10,6 +10,7 @@ class AuthBackgroundWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
+      color: Colors.white54,
       width: double.infinity,
       height: double.infinity,
       child: Stack(
@@ -19,7 +20,7 @@ class AuthBackgroundWidget extends StatelessWidget {
             child: Container(
               width: double.infinity,
               margin: EdgeInsets.only(top: 15),
-              child: Icon(Icons.person_pin, size: size.width * .30),
+              child: Icon(Icons.person_pin, size: size.width * .30, color: Colors.white),
             ),
           ), 
           this.child

@@ -10,7 +10,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Products App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
       initialRoute: 'login',
       routes: {
         'login' : (BuildContext context) => LoginPage(),
