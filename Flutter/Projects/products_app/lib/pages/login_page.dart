@@ -53,16 +53,35 @@ class _LoginForm extends StatelessWidget {
           TextFormField(
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecorations.authInputDecoration('example@gmail.com', 'Email', Icons.alternate_email_rounded),
+            decoration: InputDecorations.authInputDecoration(
+                'example@gmail.com', 'Email', Icons.alternate_email_rounded),
           ),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           TextFormField(
             autocorrect: false,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecorations.authInputDecoration('Password', 'Password', Icons.password_rounded),
+            obscureText: true,
+            decoration: InputDecorations.authInputDecoration(
+                'Password', 'Password', Icons.lock_outline_rounded),
           ),
-          SizedBox(height: 30,),
-
+          SizedBox(
+            height: 30,
+          ),
+          MaterialButton(
+            onPressed: () {},
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            disabledColor: Colors.grey,
+            color: Colors.purple,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+              child: Text('Login', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
         ],
       )),
     );
