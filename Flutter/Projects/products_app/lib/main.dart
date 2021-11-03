@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:products_app/pages/pages.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -9,16 +11,11 @@ class MyApp extends StatelessWidget {
       title: 'Products App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Products App Bar'),
-        ),
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
-        ),
-      ),
+      initialRoute: 'login',
+      routes: {
+        'login' : (BuildContext context) => LoginPage(),
+        'home' : (BuildContext context) => HomePage(),
+      },
     );
   }
 }
