@@ -27,6 +27,8 @@ class _SettingsPageState extends State<SettingsPage> {
     _gender = prefs.gender;
     _name = prefs.name;
 
+    prefs.lastOpenedPage = SettingsPage.routeName;
+
     _textController = new TextEditingController(text: _name);
   }
 

@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_preferences/src/pages/home_page.dart';
 
 class UserPreferences {
   static final UserPreferences _instance = new UserPreferences._();
@@ -37,5 +38,13 @@ class UserPreferences {
 
   set secondaryColor(bool value) {
     _prefs.setBool('secondaryColor', value);
+  }
+
+  String get lastOpenedPage {
+    return _prefs.getString('lastOpenedPage') ?? HomePage.routeName;
+  }
+
+  set lastOpenedPage (String value) {
+    _prefs.setString('lastOpenedPage', value);
   }
 }

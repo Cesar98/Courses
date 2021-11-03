@@ -9,6 +9,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    prefs.lastOpenedPage = HomePage.routeName;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor:

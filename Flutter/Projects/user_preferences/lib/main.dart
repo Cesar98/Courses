@@ -14,13 +14,17 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+
+  final prefs = new UserPreferences();
+
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: prefs.secondaryColor ? ThemeData.light() : ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       title: 'User preferences',
-      initialRoute: HomePage.routeName,
+      initialRoute: prefs.lastOpenedPage,
       routes: {
         HomePage.routeName: (BuildContext context) => HomePage(),
         SettingsPage.routeName: (BuildContext context) => SettingsPage(),
