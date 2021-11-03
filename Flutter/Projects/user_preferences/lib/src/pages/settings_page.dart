@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:user_preferences/src/shared_prefs/user_preferences.dart';
 import 'package:user_preferences/src/widgets/custom_sidebar.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -10,18 +11,41 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _switchColor = false;
-  int _gender = 1;
-  String _name = 'CUAR';
+  bool? _switchColor;
+  int? _gender;
+  String? _name;
 
   TextEditingController? _textController;
+
+  final prefs = new UserPreferences();
 
   @override
   void initState() {
     super.initState();
-    
-    _textController = new TextEditingController(text: _name);
 
+    _switchColor = prefs.secondaryColor;
+    _gender = prefs.gender;
+    _name = prefs.name;
+
+    _textController = new TextEditingController(text: _name);
+  }
+
+  _setSelectedRadio(int? value) {
+    prefs.gender = value!;
+    _gender = value;
+    setState(() {});
+  }
+
+  _setSelectedColors(bool? value) {
+    prefs.secondaryColor = value!;
+    _switchColor = value;
+    setState(() {});
+  }
+
+  _setNewUsername(String? value) {
+    prefs.name = value!;
+    _name = value;
+    setState(() {});
   }
 
   @override
@@ -30,6 +54,8 @@ class _SettingsPageState extends State<SettingsPage> {
         drawer: CustomSidebar(),
         appBar: AppBar(
           title: Text('Settings'),
+          backgroundColor:
+              prefs.secondaryColor ? Colors.deepPurpleAccent : Colors.black87,
         ),
         body: ListView(children: [
           Container(
@@ -42,20 +68,20 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           Divider(),
           SwitchListTile(
-            value: _switchColor,
-            onChanged: (value) => setState(() => _switchColor = value),
+            value: _switchColor!,
+            onChanged: _setSelectedColors,
             title: Text('Use secondary color'),
           ),
           Divider(),
           RadioListTile(
               value: 1,
               groupValue: _gender,
-              onChanged: (value) => setState(() => _gender = value as int),
+              onChanged: _setSelectedRadio,
               title: Text('Male')),
           RadioListTile(
               value: 2,
               groupValue: _gender,
-              onChanged: (value) => setState(() => _gender = value as int),
+              onChanged: _setSelectedRadio,
               title: Text('Female')),
           Divider(),
           Container(
@@ -66,7 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   labelText: 'Username',
                   helperText: "Who's using the phone?",
                   icon: Icon(Icons.supervised_user_circle_rounded)),
-              onChanged: (value) {},
+              onChanged: _setNewUsername,
             ),
           ),
         ]));
