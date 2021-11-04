@@ -113,8 +113,9 @@ class _LoginForm extends StatelessWidget {
                 color: Colors.purple,
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-                  child: Text(loginFrom.isLoading ? 'Please wait' : 'Login',
-                      style: TextStyle(color: Colors.white)),
+                  child: loginFrom.isLoading
+                      ? Text('Please wait', style: TextStyle(color: Colors.white))
+                      : Text('Login', style: TextStyle(color: Colors.white)),
                 ),
               ),
               SizedBox(
