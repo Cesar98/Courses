@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:products_app/models/models.dart';
 
 class ProductCard extends StatelessWidget {
+  final Product product;
+
+  ProductCard({Key? key, required this.product}) : super(key: key);
+
   final boxDecoration = BoxDecoration(
       color: Colors.deepPurple,
       borderRadius: BorderRadius.only(
@@ -21,22 +26,24 @@ class ProductCard extends StatelessWidget {
           decoration: _cardBorders(),
           margin: EdgeInsets.only(top: 20, bottom: 50),
           child: Stack(children: [
-            _backgroundImage(),
+            _backgroundImage(product.picture),
             Positioned(
               top: 0,
               right: 0,
-              child: _priceCard(percentage30),
+              child: _priceCard(percentage30, product.price),
             ),
             Positioned(
               bottom: 0,
               left: 0,
-              child: _descCard(percentage80),
+              child: _descCard(percentage80, product.name, product.id),
             ),
-            Positioned(
-              top: 0,
-              left: 0,
-              child: _availableCard(percentage30),
-            )
+            product.available
+                ? Positioned(
+                    top: 0,
+                    left: 0,
+                    child: _availableCard(percentage30),
+                  )
+                : Container()
           ])),
     );
   }
@@ -47,21 +54,28 @@ class ProductCard extends StatelessWidget {
         boxShadow: [BoxShadow(color: Colors.black, blurRadius: 20)]);
   }
 
-  ClipRRect _backgroundImage() {
+  ClipRRect _backgroundImage(String? productImage) {
     var borderRadius = BorderRadius.circular(20);
     return ClipRRect(
       borderRadius: borderRadius,
-      child: FadeInImage(
-        placeholder: AssetImage('assets/jar-loading.gif'),
-        image: NetworkImage('https://via.placeholder.com/400x300/f6f6f6'),
-        fit: BoxFit.cover,
-        height: 400,
-        width: double.infinity,
-      ),
+      child: productImage == null
+          ? Image(
+              image: AssetImage('assets/no-image.png'),
+              fit: BoxFit.cover,
+              height: 400,
+              width: double.infinity,
+            )
+          : FadeInImage(
+              placeholder: AssetImage('assets/jar-loading.gif'),
+              image: NetworkImage(productImage),
+              fit: BoxFit.cover,
+              height: 400,
+              width: double.infinity,
+            ),
     );
   }
 
-  Container _priceCard(double width) {
+  Container _priceCard(double width, double productPrice) {
     return Container(
       decoration: boxDecoration,
       width: width,
@@ -72,7 +86,7 @@ class ProductCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              '\$123.50',
+              '\$$productPrice',
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
@@ -81,7 +95,7 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Container _descCard(double width) {
+  Container _descCard(double width, String productName, String? productId) {
     return Container(
       decoration: boxDecoration,
       width: width,
@@ -93,7 +107,7 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Product description',
+              '$productName',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -101,7 +115,7 @@ class ProductCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            Text('Product firebase id',
+            Text('$productId',
                 style: TextStyle(color: Colors.white, fontSize: 15))
           ],
         ),
