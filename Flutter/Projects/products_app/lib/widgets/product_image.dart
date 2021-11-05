@@ -14,17 +14,20 @@ class ProductImage extends StatelessWidget {
         width: double.infinity,
         height: size.height * .50,
         decoration: _imageBoxDecoration(),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          child: productImage == null
-              ? Image(
-                  image: AssetImage('assets/no-image.png'), fit: BoxFit.cover)
-              : FadeInImage(
-                  placeholder: AssetImage('assets/jar-loading.gif'),
-                  image: NetworkImage(productImage!),
-                  fit: BoxFit.cover,
-                ),
+        child: Opacity(
+          opacity: 0.8,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+            child: productImage == null
+                ? Image(
+                    image: AssetImage('assets/no-image.png'), fit: BoxFit.cover)
+                : FadeInImage(
+                    placeholder: AssetImage('assets/jar-loading.gif'),
+                    image: NetworkImage(productImage!),
+                    fit: BoxFit.cover,
+                  ),
+          ),
         ));
   }
 
