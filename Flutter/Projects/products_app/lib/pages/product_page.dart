@@ -64,7 +64,7 @@ class _ProductsPageBody extends StatelessWidget {
                       iconSize: 30,
                       onPressed: () async {
                         final XFile? photo =
-                            await _picker.pickImage(source: ImageSource.camera);
+                            await _picker.pickImage(source: ImageSource.camera, imageQuality: 100);
 
                         if (photo != null) {
                           productsService
@@ -82,7 +82,7 @@ class _ProductsPageBody extends StatelessWidget {
                       iconSize: 30,
                       onPressed: () async {
                         final XFile? image = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                            source: ImageSource.gallery, imageQuality: 100);
 
                         if (image != null) {
                           productsService

@@ -5,7 +5,7 @@ import 'package:products_app/ui/input_decorations.dart';
 import 'package:products_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Text('Login', style: textStyle),
+                Text('Create account', style: textStyle),
                 SizedBox(
                   height: 10,
                 ),
@@ -46,8 +46,8 @@ class LoginPage extends StatelessWidget {
 
             ),
             onPressed: () =>
-                Navigator.pushReplacementNamed(context, 'register'),
-            child: Text('Register', style: TextStyle(color: Colors.black87),),
+                Navigator.pushReplacementNamed(context, 'login'),
+            child: Text('Login', style: TextStyle(color: Colors.black87),),
           ),
           SizedBox(height: size.width * .25),
         ],
@@ -123,8 +123,7 @@ class _LoginForm extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                   child: loginFrom.isLoading
-                      ? Text('Please wait',
-                          style: TextStyle(color: Colors.white))
+                      ? Text('Please wait', style: TextStyle(color: Colors.white))
                       : Text('Login', style: TextStyle(color: Colors.white)),
                 ),
               ),

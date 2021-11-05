@@ -21,11 +21,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Products App',
         debugShowCheckedModeBanner: false,
-        initialRoute: 'home',
+        initialRoute: 'login',
         routes: {
           'login': (BuildContext context) => LoginPage(),
           'home': (BuildContext context) => HomePage(),
           'product': (BuildContext context) => ProductPage(),
+          'register': (BuildContext context) => RegisterPage(),
         },
         theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: Colors.white70,
