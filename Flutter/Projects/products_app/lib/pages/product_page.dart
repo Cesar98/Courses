@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:products_app/providers/product_form_provider.dart';
 import 'package:products_app/ui/input_decorations.dart';
-import 'package:provider/provider.dart';
-
 import 'package:products_app/widgets/widgets.dart';
 import 'package:products_app/services/services.dart';
 
@@ -31,8 +32,8 @@ class _ProductsPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final productForm = Provider.of<ProductFormProvider>(context);
+    final ImagePicker _picker = ImagePicker();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -58,12 +59,38 @@ class _ProductsPageBody extends StatelessWidget {
                   ),
                   Positioned(
                     child: IconButton(
-                      icon: Icon(Icons.camera_alt_rounded),
+                      icon: Icon(Icons.add_a_photo_rounded),
                       color: Colors.white,
                       iconSize: 30,
-                      onPressed: () {},
+                      onPressed: () async {
+                        final XFile? photo =
+                            await _picker.pickImage(source: ImageSource.camera);
+
+                        if (photo != null) {
+                          productsService
+                              .updateSelectedProductImage(photo.path);
+                        }
+                      },
                     ),
                     top: size.height * .10,
+                    right: size.width * .05,
+                  ),
+                  Positioned(
+                    child: IconButton(
+                      icon: Icon(Icons.drive_folder_upload_rounded),
+                      color: Colors.white,
+                      iconSize: 30,
+                      onPressed: () async {
+                        final XFile? image = await _picker.pickImage(
+                            source: ImageSource.gallery);
+
+                        if (image != null) {
+                          productsService
+                              .updateSelectedProductImage(image.path);
+                        }
+                      },
+                    ),
+                    top: size.height * .10 + 50,
                     right: size.width * .05,
                   ),
                 ],
@@ -80,7 +107,7 @@ class _ProductsPageBody extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
         onPressed: () async {
-          if(!productForm.isValidForm()) return;
+          if (!productForm.isValidForm()) return;
 
           await productsService.saveProduct(productForm.product);
         },
@@ -102,65 +129,66 @@ class _ProductForm extends StatelessWidget {
       width: double.infinity,
       decoration: _contentDecoration(),
       child: Form(
-        key: productForm.formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: productForm.formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-              initialValue: product.name,
-              autocorrect: true,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecorations.authInputDecoration(
-                  'Product name', 'Product', Icons.local_grocery_store),
-              onChanged: (value) {
-                product.name = value;
-              },
-              validator: (value) {
-                if (value!.length < 1) return 'Product name is necessary';
-              }),
-          SizedBox(
-            height: 20,
-          ),
-          TextFormField(
-              initialValue: product.price.toString(),
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
-              ],
-              autocorrect: false,
-              keyboardType: TextInputType.number,
-              decoration: InputDecorations.authInputDecoration(
-                  '\$120.10', 'Price', Icons.attach_money_rounded),
-              onChanged: (value) {
-                if (double.tryParse(value) == null) {
-                  product.price = 0;
-                } else {
-                  product.price = double.parse(value);
-                }
-              }),
-          SizedBox(
-            height: 20,
-          ),
-          SwitchListTile.adaptive(
-              title: Text(
-                'Available',
-                style: TextStyle(color: Colors.purple),
+            children: [
+              SizedBox(
+                height: 10,
               ),
-              secondary: Icon(
-                Icons.add_business_rounded,
-                color: Colors.purple,
+              TextFormField(
+                  initialValue: product.name,
+                  autocorrect: true,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecorations.authInputDecoration(
+                      'Product name', 'Product', Icons.local_grocery_store),
+                  onChanged: (value) {
+                    product.name = value;
+                  },
+                  validator: (value) {
+                    if (value!.length < 1) return 'Product name is necessary';
+                  }),
+              SizedBox(
+                height: 20,
               ),
-              value: product.available,
-              activeColor: Colors.deepPurple,
-              activeTrackColor: Colors.purple,
-              onChanged: productForm.updateAvailability),
-          SizedBox(
-            height: 10,
-          ),
-        ],
-      )),
+              TextFormField(
+                  initialValue: product.price.toString(),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^(\d+)?\.?\d{0,2}'))
+                  ],
+                  autocorrect: false,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecorations.authInputDecoration(
+                      '\$120.10', 'Price', Icons.attach_money_rounded),
+                  onChanged: (value) {
+                    if (double.tryParse(value) == null) {
+                      product.price = 0;
+                    } else {
+                      product.price = double.parse(value);
+                    }
+                  }),
+              SizedBox(
+                height: 20,
+              ),
+              SwitchListTile.adaptive(
+                  title: Text(
+                    'Available',
+                    style: TextStyle(color: Colors.purple),
+                  ),
+                  secondary: Icon(
+                    Icons.add_business_rounded,
+                    color: Colors.purple,
+                  ),
+                  value: product.available,
+                  activeColor: Colors.deepPurple,
+                  activeTrackColor: Colors.purple,
+                  onChanged: productForm.updateAvailability),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          )),
     );
   }
 
