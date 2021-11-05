@@ -5,19 +5,17 @@ import 'package:http/http.dart' as http;
 import 'package:products_app/models/models.dart';
 
 class ProductsService extends ChangeNotifier {
-
   final String _baseUrl = 'flutter-projects-e07d5-default-rtdb.firebaseio.com';
   final List<Product> products = [];
   bool isLoading = true;
   bool isSaving = false;
   Product? selectedProduct;
 
-  ProductsService(){
+  ProductsService() {
     this.loadProducts();
   }
 
   Future<List<Product>> loadProducts() async {
-
     this.isLoading = true;
     notifyListeners();
 
@@ -26,11 +24,9 @@ class ProductsService extends ChangeNotifier {
     final Map<String, dynamic> productsMap = json.decode(response.body);
 
     productsMap.forEach((key, value) {
-      
       final tempProduct = Product.fromMap(value);
       tempProduct.id = key;
       this.products.add(tempProduct);
-
     });
 
     this.isLoading = false;
@@ -39,14 +35,13 @@ class ProductsService extends ChangeNotifier {
     return this.products;
   }
 
-  Future saveProduct (Product product) async {
-
+  Future saveProduct(Product product) async {
     isSaving = true;
     notifyListeners();
 
-    if(product.id == null){
-
-    }else{
+    if (product.id == null) {
+      await this.createProduct(product);
+    } else {
       await this.updateProduct(product);
     }
 
@@ -56,12 +51,22 @@ class ProductsService extends ChangeNotifier {
 
   Future<String> updateProduct(Product product) async {
     final url = Uri.https(_baseUrl, 'products/${product.id}.json');
-    final response = await http.put( url, body: product.toJson() );
+    final response = await http.put(url, body: product.toJson());
     final decodedData = response.body;
 
-    products[products.indexWhere((element) => element.id == product.id)] = product;
+    products[products.indexWhere((element) => element.id == product.id)] =
+        product;
 
     return product.id!;
   }
 
+  Future<String> createProduct(Product product) async {
+    final url = Uri.https(_baseUrl, 'products.json');
+    final response = await http.post(url, body: product.toJson());
+    final decodedData = json.decode(response.body);
+    product.id = decodedData['name'];
+    products.add(product);
+
+    return product.id!;
+  }
 }

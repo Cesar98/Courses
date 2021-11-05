@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:products_app/services/services.dart';
 import 'package:products_app/widgets/widgets.dart';
 import 'package:products_app/pages/pages.dart';
+import 'package:products_app/models/models.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -32,7 +33,12 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_shopping_cart_sharp),
-        onPressed: () {},
+        onPressed: () {
+          productsService.selectedProduct =
+              new Product(available: true, name: '', price: 0.0);
+
+          Navigator.pushNamed(context, 'product');
+        },
       ),
     );
   }
