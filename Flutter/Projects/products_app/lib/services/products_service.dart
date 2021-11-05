@@ -73,11 +73,41 @@ class ProductsService extends ChangeNotifier {
     return product.id!;
   }
 
-  void updateSelectedProductImage(String path){
-
+  void updateSelectedProductImage(String path) {
     this.selectedProduct!.picture = path;
     this.newPictureFile = File.fromUri(Uri(path: path));
+
+    notifyListeners();
+  }
+
+  Future<String?> uploadImage() async {
+    if (this.newPictureFile == null) return null;
+
+    this.isSaving = true;
     notifyListeners();
 
+    final url = Uri.parse(
+        'https://api.cloudinary.com/v1_1/dojpadslh/image/upload?upload_preset=mkmvgotd');
+
+    final imageUploadRequest = http.MultipartRequest('POST', url);
+
+    final file =
+        await http.MultipartFile.fromPath('file', newPictureFile!.path);
+
+    imageUploadRequest.files.add(file);
+
+    final streamResponse = await imageUploadRequest.send();
+
+    final response = await http.Response.fromStream(streamResponse);
+
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      return null;
+    }
+
+    final decodedData = json.decode(response.body);
+
+    this.newPictureFile = null;
+    
+    return decodedData['secure_url'];
   }
 }
