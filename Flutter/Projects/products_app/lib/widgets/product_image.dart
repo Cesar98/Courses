@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class ProductImage extends StatelessWidget {
+  final String? productImage;
+
+  const ProductImage({this.productImage});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -13,11 +17,14 @@ class ProductImage extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          child: FadeInImage(
-            placeholder: AssetImage('assets/jar-loading.gif'),
-            image: NetworkImage('https://via.placeholder.com/400x300/green'),
-            fit: BoxFit.cover,
-          ),
+          child: productImage == null
+              ? Image(
+                  image: AssetImage('assets/no-image.png'), fit: BoxFit.cover)
+              : FadeInImage(
+                  placeholder: AssetImage('assets/jar-loading.gif'),
+                  image: NetworkImage(productImage!),
+                  fit: BoxFit.cover,
+                ),
         ));
   }
 

@@ -37,7 +37,7 @@ class ProductCard extends StatelessWidget {
               left: 0,
               child: _descCard(percentage80, product.name, product.id),
             ),
-            product.available
+            !product.available
                 ? Positioned(
                     top: 0,
                     left: 0,

@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:products_app/providers/product_form_provider.dart';
 import 'package:products_app/ui/input_decorations.dart';
+import 'package:provider/provider.dart';
+
 import 'package:products_app/widgets/widgets.dart';
+import 'package:products_app/services/services.dart';
 
 class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final productsService = Provider.of<ProductsService>(context);
     final size = MediaQuery.of(context).size;
 
+    return ChangeNotifierProvider(
+        create: (_) => ProductFormProvider(productsService.selectedProduct!),
+        child: _ProductsPageBody(productsService: productsService, size: size));
+  }
+}
+
+class _ProductsPageBody extends StatelessWidget {
+  const _ProductsPageBody({
+    Key? key,
+    required this.productsService,
+    required this.size,
+  }) : super(key: key);
+
+  final ProductsService productsService;
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -15,7 +39,11 @@ class ProductPage extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Hero(child: ProductImage(), tag:1),
+                  Hero(
+                      child: ProductImage(
+                        productImage: productsService.selectedProduct!.picture,
+                      ),
+                      tag: productsService.selectedProduct!.name),
                   Positioned(
                     child: IconButton(
                         icon: Icon(Icons.arrow_back),
@@ -57,6 +85,9 @@ class ProductPage extends StatelessWidget {
 class _ProductForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final productForm = Provider.of<ProductFormProvider>(context);
+    final product = productForm.product;
+
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -70,22 +101,36 @@ class _ProductForm extends StatelessWidget {
             height: 10,
           ),
           TextFormField(
+              initialValue: product.name,
               autocorrect: true,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecorations.authInputDecoration(
                   'Product name', 'Product', Icons.local_grocery_store),
-              onChanged: (value) {},
-              validator: (value) {}),
+              onChanged: (value) {
+                product.name = value;
+              },
+              validator: (value) {
+                if (value!.length < 1) return 'Product name is necessary';
+              }),
           SizedBox(
             height: 20,
           ),
           TextFormField(
+              initialValue: product.price.toString(),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              ],
               autocorrect: false,
               keyboardType: TextInputType.number,
               decoration: InputDecorations.authInputDecoration(
                   '\$120.10', 'Price', Icons.attach_money_rounded),
-              onChanged: (value) {},
-              validator: (value) {}),
+              onChanged: (value) {
+                if (double.tryParse(value) == null) {
+                  product.price = 0;
+                } else {
+                  product.price = double.parse(value);
+                }
+              }),
           SizedBox(
             height: 20,
           ),
@@ -94,11 +139,14 @@ class _ProductForm extends StatelessWidget {
                 'Available',
                 style: TextStyle(color: Colors.purple),
               ),
-              secondary: Icon(Icons.add_business_rounded, color: Colors.purple,),
-              value: true,
+              secondary: Icon(
+                Icons.add_business_rounded,
+                color: Colors.purple,
+              ),
+              value: product.available,
               activeColor: Colors.deepPurple,
               activeTrackColor: Colors.purple,
-              onChanged: (value) {}),
+              onChanged: productForm.updateAvailability),
           SizedBox(
             height: 10,
           ),

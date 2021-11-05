@@ -24,7 +24,10 @@ class HomePage extends StatelessWidget {
                 child: ProductCard(product: products[index]),
                 tag: products[index].name,
               ),
-              onTap: () => Navigator.pushNamed(context, 'product'));
+              onTap: () {
+                productsService.selectedProduct = products[index].copy();
+                Navigator.pushNamed(context, 'product');
+              });
         },
       ),
       floatingActionButton: FloatingActionButton(
