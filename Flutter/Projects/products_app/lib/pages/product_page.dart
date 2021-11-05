@@ -31,6 +31,9 @@ class _ProductsPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final productForm = Provider.of<ProductFormProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -76,7 +79,11 @@ class _ProductsPageBody extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
-        onPressed: () {},
+        onPressed: () async {
+          if(!productForm.isValidForm()) return;
+
+          await productsService.saveProduct(productForm.product);
+        },
       ),
     );
   }
@@ -95,6 +102,8 @@ class _ProductForm extends StatelessWidget {
       width: double.infinity,
       decoration: _contentDecoration(),
       child: Form(
+        key: productForm.formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
         children: [
           SizedBox(
