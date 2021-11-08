@@ -10,13 +10,21 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsService = Provider.of<ProductsService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
 
     if (productsService.isLoading) return LoadingPage();
 
     final products = productsService.products;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Products')),
+      appBar: AppBar(title: Text('Products'), actions: [
+        IconButton(
+            onPressed: () {
+              authService.logout();
+              Navigator.pushReplacementNamed(context, 'login');
+            },
+            icon: Icon(Icons.logout_rounded))
+      ]),
       body: ListView.builder(
         itemCount: products.length,
         itemBuilder: (BuildContext context, int index) {

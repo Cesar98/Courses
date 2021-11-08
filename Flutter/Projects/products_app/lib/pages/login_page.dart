@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:products_app/providers/login_form_provider.dart';
+import 'package:products_app/services/services.dart';
 import 'package:products_app/ui/input_decorations.dart';
 
 import 'package:products_app/widgets/widgets.dart';
@@ -41,13 +42,15 @@ class LoginPage extends StatelessWidget {
           SizedBox(height: size.width * .10),
           TextButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.deepPurple.shade300),
-              overlayColor: MaterialStateProperty.all(Colors.white30)
-
-            ),
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.deepPurple.shade300),
+                overlayColor: MaterialStateProperty.all(Colors.white30)),
             onPressed: () =>
                 Navigator.pushReplacementNamed(context, 'register'),
-            child: Text('Register', style: TextStyle(color: Colors.black87),),
+            child: Text(
+              'Register',
+              style: TextStyle(color: Colors.black87),
+            ),
           ),
           SizedBox(height: size.width * .25),
         ],
@@ -108,13 +111,25 @@ class _LoginForm extends StatelessWidget {
               MaterialButton(
                 onPressed: loginFrom.isLoading
                     ? null
-                    : () {
+                    : () async {
                         FocusScope.of(context).unfocus();
 
-                        if (!loginFrom.isValidForm()) return null;
+                        final authService =
+                            Provider.of<AuthService>(context, listen: false);
 
-                        Navigator.pushReplacementNamed(context, 'home');
+                        if (!loginFrom.isValidForm()) return;
                         loginFrom.isLoading = true;
+
+                        final String? errorMessage = await authService.login(
+                            loginFrom.email, loginFrom.password);
+
+                        if (errorMessage == null) {
+                          Navigator.pushReplacementNamed(context, 'home');
+                        } else {
+                          // show error on screen
+                          print(errorMessage);
+                          loginFrom.isLoading = false;
+                        }
                       },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
