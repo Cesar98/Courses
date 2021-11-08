@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
           'register': (BuildContext context) => RegisterPage(),
           'checking': (BuildContext context) => CheckAuthPage(),
         },
+        scaffoldMessengerKey : NotificationsService.messengerKey,
         theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: Colors.white70,
           appBarTheme: AppBarTheme(color: Colors.deepPurple),
