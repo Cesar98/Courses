@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/src/pages/tab1_page.dart';
 import 'package:provider/provider.dart';
 
 class TabsPage extends StatelessWidget {
@@ -24,6 +25,7 @@ class _BottomNavBar extends StatelessWidget {
       onTap: (value) {
         navModel.actualPage = value;
       },
+      elevation: 10.0,
       items: [
         BottomNavigationBarItem(
             icon: Icon(Icons.android_rounded), label: 'For u'),
@@ -44,9 +46,7 @@ class _Pages extends StatelessWidget {
       controller: navModel.pageController,
       physics: NeverScrollableScrollPhysics(),
       children: [
-        Container(
-          color: Colors.red,
-        ),
+        Tab1Page(),
         Container(
           color: Colors.green,
         ),
@@ -63,7 +63,8 @@ class _NavigationModel extends ChangeNotifier {
 
   set actualPage(int page) {
     _actualPage = page;
-    _pageController.animateToPage(page, duration: Duration(milliseconds: 250), curve: Curves.easeInOut);
+    _pageController.animateToPage(page,
+        duration: Duration(milliseconds: 250), curve: Curves.easeInOut);
     notifyListeners();
   }
 
