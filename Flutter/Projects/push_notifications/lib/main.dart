@@ -28,9 +28,7 @@ class _MyAppState extends State<MyApp> {
     PushNotificationsService.messageStream.listen((event) {
       print('Myapp: $event');
 
-      final snackBar = SnackBar(
-        content: Text('$event'),
-      );
+      final snackBar = SnackBar(content: Text('$event'));
       messengerKey.currentState?.showSnackBar(snackBar);
       navigatorKey.currentState?.pushNamed('message', arguments: event);
     });

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mapbox_app/src/pages/full_map_page.dart';
+import 'package:mapbox_app/full_map_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,8 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: Scaffold(body: FullMapPage()),
+      home: FullMapPage()
     );
   }
 }
