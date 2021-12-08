@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:stripe_test/services/stripe_service.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -6,8 +10,12 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+    String clientSecret = '';
+
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Material App Bar'),
@@ -19,8 +27,38 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.payment_rounded),
-        onPressed: () => print('Stripe gg'),
+        onPressed: () async {
+          clientSecret = await StripeService().getClientSecretId();
+
+          await Stripe.instance.initPaymentSheet(
+              paymentSheetParameters: SetupPaymentSheetParameters(
+            applePay: false,
+            googlePay: true,
+            testEnv: true,
+            style: ThemeMode.dark,
+            paymentIntentClientSecret: clientSecret,
+            merchantCountryCode: myLocale.countryCode,
+            merchantDisplayName: 'Pago de recibos',
+            primaryButtonColor: Colors.black,
+            billingDetails: BillingDetails(email: 'cesar_zuco@hotmail.com'),
+
+          ));
+          setState(() {});
+
+          displayPaymentSheet();
+        },
       ),
     );
+  }
+
+  Future<void> displayPaymentSheet() async {
+    try {
+      await Stripe.instance.presentPaymentSheet();
+      setState(() {
+        clientSecret = '';
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 }
