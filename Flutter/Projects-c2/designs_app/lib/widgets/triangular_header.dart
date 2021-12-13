@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DiagonalHeader extends StatelessWidget {
+class TriangularHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -9,26 +9,24 @@ class DiagonalHeader extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         child: CustomPaint(
-          painter: _DiagonalHeaderPainter(),
+          painter: _TriangularHeaderPainter(),
         ));
   }
 }
 
-class _DiagonalHeaderPainter extends CustomPainter {
+class _TriangularHeaderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint();
+    final paint = Paint(); 
 
-    paint.color = Colors.red;
+    paint.color = Colors.blueGrey;
     paint.style = PaintingStyle.fill;
 
     final path = Path();
 
-    path.moveTo(0, size.height * 0.5);
-    path.lineTo(size.width, size.height * 0.4);
+    path.moveTo(0, 0);
+    path.lineTo(size.width, size.height);
     path.lineTo(size.width, 0);
-    path.lineTo(0, 0);
-    path.lineTo(0, size.height * 0.5);
 
     canvas.drawPath(path, paint);
   }

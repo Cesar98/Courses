@@ -1,5 +1,7 @@
 import 'package:designs_app/pages/headers_page.dart';
 import 'package:designs_app/widgets/diagonal_header.dart';
+import 'package:designs_app/widgets/pinch_header.dart';
+import 'package:designs_app/widgets/triangular_header.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: DiagonalHeader()
+      home: PinchHeader()
     );
   }
 }
